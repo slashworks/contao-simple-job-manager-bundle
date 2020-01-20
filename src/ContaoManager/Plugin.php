@@ -25,7 +25,7 @@ class Plugin implements BundlePluginInterface
     {
         return [
             BundleConfig::create(ContaoSimpleJobManagerBundle::class)
-                ->setLoadAfter([ContaoSimpleJobManagerBundle::class]),
+                ->setLoadAfter([ContaoCoreBundle::class]),
         ];
     }
 }
