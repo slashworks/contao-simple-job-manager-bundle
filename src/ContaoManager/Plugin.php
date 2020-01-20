@@ -8,7 +8,7 @@
  * @license LGPL-3.0-or-later
  */
 
-namespace Slashworks\ContaoSimpleJobManager\ContaoManager;
+namespace Slashworks\ContaoSimpleJobManagerBundle\ContaoManager;
 
 use Contao\CoreBundle\ContaoCoreBundle;
 use Contao\ManagerPlugin\Bundle\BundlePluginInterface;
