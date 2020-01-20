@@ -17,7 +17,7 @@ class ContaoSimpleJobManagerBundleTest extends TestCase
 {
     public function testCanBeInstantiated()
     {
-        $bundle = new ContaoSimpleJobManagerBundleBundle();
+        $bundle = new ContaoSimpleJobManagerBundle();
 
         $this->assertInstanceOf('Slashworks\ContaoSimpleJobManagerBundle\ContaoSimpleJobManagerBundle', $bundle);
     }
