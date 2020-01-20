@@ -1,0 +1,10 @@
+/* Custom icon for SCM backend module. */
+#tl_navigation .group-simplecompanymanager {
+    background: url('company.svg') 3px 1px no-repeat;
+    background-size: 13px 13px;
+}
+
+/* Since we use the tree view, hide the globe image to avoid confusion. */
+form[action*="do=products"] ~ .tl_listing_container .tl_folder_top .tl_left img {
+    display: none;
+}
