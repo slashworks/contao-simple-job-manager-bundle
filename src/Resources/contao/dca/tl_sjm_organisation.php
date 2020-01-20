@@ -81,7 +81,7 @@ $GLOBALS['TL_DCA']['tl_sjm_organisation'] = array
     // Palettes
     'palettes' => array
     (
-        'default' => '{title_legend},title,anschrift,anschriftHinweis,plz,ort,geodata,telefon,fax,isNew,category,oeffnungszeiten',
+        'default' => '{title_legend},title,organisation,business,url,logo',
     ),
 
     // Fields
@@ -142,5 +142,5 @@ $GLOBALS['TL_DCA']['tl_sjm_organisation'] = array
         ),
 
 
-    ),
+    )
 );

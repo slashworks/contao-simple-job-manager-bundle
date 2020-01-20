@@ -12,10 +12,10 @@ $GLOBALS['BE_MOD']['simplejobmanager'] = array
     (
         'tables' => array('tl_sjm_organisation'),
     ),
-    'jobs' => array
-    (
-        'tables' => array('tl_sjm_jobs'),
-    )
+//    'jobs' => array
+//    (
+//        'tables' => array('tl_sjm_jobs'),
+//    )
 );
 
 /**
