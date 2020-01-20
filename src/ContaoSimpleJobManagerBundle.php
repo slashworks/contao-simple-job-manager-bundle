@@ -8,7 +8,7 @@
  * @license LGPL-3.0-or-later
  */
 
-namespace Contao\ContaoSimpleJobManagerBundle;
+namespace Slashworks\ContaoSimpleJobManagerBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
