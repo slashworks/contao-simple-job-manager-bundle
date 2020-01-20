@@ -1,0 +1,5 @@
+<testsuites>
+    <testsuite name="Contao Simple Job Manager Bundle">
+        <directory>./tests</directory>
+    </testsuite>
+</testsuites>
