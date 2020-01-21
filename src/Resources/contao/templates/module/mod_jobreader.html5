@@ -1,0 +1,4 @@
+<?php var_dump($this->headline); ?>
+<?php print_r($this->sorting); ?>
+<?php var_dump($this->job); ?>
+

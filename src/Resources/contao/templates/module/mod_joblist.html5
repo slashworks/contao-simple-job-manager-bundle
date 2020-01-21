@@ -1,0 +1,44 @@
+<?php var_dump($this->headline); ?>
+<?php print_r($this->sorting); ?>
+<?php var_dump($this->jobs); ?>
+
+<script type="application/ld+json">
+	{
+		"@context": "https://schema.org/",
+		"@type": "JobPosting",
+		"title": "Jobtitel",
+		"description": "Jobdescription",
+		"identifier": {
+			"@type": "PropertyValue",
+			"name": "borowiakziehe kg",
+			"value": "Identifier"
+		},
+		"hiringOrganization" : {
+			"@type" : "Organization",
+			"name" : "Google",
+			"sameAs" : "http://www.google.com",
+			"logo" : "http://www.example.com/images/logo.png"
+		},
+		"industry": "Werbeagentur",
+		"employmentType": "FULL_TIME",
+		"workHours": "9 to 5",
+		"datePosted": "2020-01-21",
+		"validThrough": "2020-12-01",
+		"jobLocation": {
+			"@type": "Place",
+			"address": {
+				"@type": "PostalAddress",
+				"streetAddress": "Marie-Curie-Str. 1",
+				"addressLocality": "Lüneburg",
+				"postalCode": "21335",
+				"addressCountry": "DE"
+			}
+		},
+		"responsibilities": "Verantwortlichkeiten",
+		"skills": "Fähigkeiten",
+		"qualifications": "Qualifikationen",
+		"educationRequirements": "Ausbildungsanforderungen",
+		"experienceRequirements": "Erfahrungsanforderungen"
+	}
+</script>
+

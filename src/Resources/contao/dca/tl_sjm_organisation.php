@@ -19,6 +19,7 @@ $GLOBALS['TL_DCA']['tl_sjm_organisation'] = array
     'config'   => array
     (
         'dataContainer'     => 'Table',
+        'ctable'            => array('tl_sjm_jobs'),
         'enableVersioning'  => true,
         'sql'               => array
         (
@@ -42,7 +43,8 @@ $GLOBALS['TL_DCA']['tl_sjm_organisation'] = array
         ),
         'label'             => array
         (
-            'fields' => array('title'),
+            'fields' => array('title', 'organisation'),
+            'format'  => '%s - %s',
         ),
         'global_operations' => array
         (
@@ -59,8 +61,15 @@ $GLOBALS['TL_DCA']['tl_sjm_organisation'] = array
             'edit'   => array
             (
                 'label' => &$GLOBALS['TL_LANG']['tl_sjm_organisation']['edit'],
-                'href'  => 'act=edit',
+                'href'  => 'table=tl_sjm_jobs',
                 'icon'  => 'edit.svg',
+            ),
+            'editheader' => array
+            (
+                'label'               => &$GLOBALS['TL_LANG']['tl_news_archive']['editheader'],
+                'href'                => 'act=edit',
+                'icon'                => 'header.svg',
+                'button_callback'     => array('tl_sjm_organisation', 'editHeader')
             ),
             'delete' => array
             (
@@ -81,7 +90,7 @@ $GLOBALS['TL_DCA']['tl_sjm_organisation'] = array
     // Palettes
     'palettes' => array
     (
-        'default' => '{title_legend},title,organisation,business,url,logo',
+        'default' => '{title_legend},title,organisation,url,logo;{address_legend},addressstreet,addresslocality,addressregion,addresspostalcode,addresscountry',
     ),
 
     // Fields
@@ -94,6 +103,10 @@ $GLOBALS['TL_DCA']['tl_sjm_organisation'] = array
         'tstamp' => array
         (
             'sql' => "int(10) unsigned NOT NULL default '0'",
+        ),
+        'sorting' => array
+        (
+            'sql'                     => "int(10) unsigned NOT NULL default '0'"
         ),
         'title'  => array
         (
@@ -113,16 +126,6 @@ $GLOBALS['TL_DCA']['tl_sjm_organisation'] = array
             'eval'      => array('mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'),
             'sql'       => "varchar(255) NOT NULL default ''",
         ),
-        'business'  => array
-        (
-            'label'     => &$GLOBALS['TL_LANG']['tl_sjm_organisation']['business'],
-            'exclude'   => true,
-            'search'    => true,
-            'inputType' => 'select',
-            'options'   => array('','wert1','wert2','wert3','wert4','wert5'),
-            'reference' => &$GLOBALS['TL_LANG']['tl_sjm_organisation'],
-            'eval'      => array('mandatory'=>true, 'maxlength'=>64, 'tl_class'=>'w50 wizard')
-        ),
         'url'  => array
         (
             'label'     => &$GLOBALS['TL_LANG']['tl_sjm_organisation']['url'],
@@ -140,7 +143,77 @@ $GLOBALS['TL_DCA']['tl_sjm_organisation'] = array
             'eval'      => array('filesOnly' => true, 'fieldType' => 'radio', 'tl_class' => 'clr'),
             'sql'       => "binary(16) NULL",
         ),
-
-
+        'addressstreet' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_sjm_organisation']['addressstreet'],
+            'exclude'                 => true,
+            'search'                  => true,
+            'sorting'                 => true,
+            'flag'                    => 1,
+            'inputType'               => 'text',
+            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
+        ),
+        'addresslocality' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_sjm_organisation']['addresslocality'],
+            'exclude'                 => true,
+            'search'                  => true,
+            'sorting'                 => true,
+            'flag'                    => 1,
+            'inputType'               => 'text',
+            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
+        ),
+        'addressregion' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_sjm_organisation']['addressregion'],
+            'exclude'                 => true,
+            'search'                  => true,
+            'sorting'                 => true,
+            'flag'                    => 1,
+            'inputType'               => 'text',
+            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
+        ),
+        'addresspostalcode' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_sjm_organisation']['addresspostalcode'],
+            'exclude'                 => true,
+            'search'                  => true,
+            'sorting'                 => true,
+            'flag'                    => 1,
+            'inputType'               => 'text',
+            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
+        ),
+        'addresscountry' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_sjm_organisation']['addresscountry'],
+            'exclude'                 => true,
+            'search'                  => true,
+            'sorting'                 => true,
+            'flag'                    => 1,
+            'inputType'               => 'text',
+            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
+        ),
     )
 );
+
+class tl_sjm_organisation extends Backend
+{
+    /**
+     * Import the back end user object
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->import('BackendUser', 'User');
+    }
+
+    public function editHeader($row, $href, $label, $title, $icon, $attributes)
+    {
+        return $this->User->canEditFieldsOf('tl_sjm_organisation') ? '<a href="' . $this->addToUrl($href . '&amp;id=' . $row['id']) . '" title="' . StringUtil::specialchars($title) . '"' . $attributes . '>' . Image::getHtml($icon, $label) . '</a> ' : Image::getHtml(preg_replace('/\.svg$/i', '_.svg', $icon)) . ' ';
+    }
+}

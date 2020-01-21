@@ -1,5 +1,5 @@
 /* Custom icon for SCM backend module. */
-#tl_navigation .group-simplecompanymanager {
+#tl_navigation .group-sjm {
     background: url('company.svg') 3px 1px no-repeat;
     background-size: 13px 13px;
 }
