@@ -109,7 +109,7 @@ $GLOBALS['TL_DCA']['tl_sjm_jobs'] = array
     'palettes' => array
     (
         '__selector__'                => array('addImage', 'addEnclosure', 'source', 'overwriteMeta'),
-        'default'                     => '{title_legend},title,business,alias,description,responsibilities,skills,qualifications,educationRequirements,experienceRequirements,jobnumber,employmenttype;{date_legend},dateposted,validthrough,startingfrom,workingtimes,jobexpiration;{address_legend},addressstreet,addresslocality,addressregion,addresspostalcode,addresscountry;{document_legend},image,pdf;;'
+        'default'                     => '{title_legend},title,business,alias,description,responsibilities,skills,qualifications,educationRequirements,experienceRequirements,jobnumber,employmenttype;{date_legend},dateposted,validthrough,startingfrom,workingtimes,jobexpiration;{address_legend},addressstreet,addresslocality,addressregion,addresspostalcode,addresscountry;{contact_legend},contactname,contactemail,contactaddressphone,contactaddressstreet,contactaddresspostalcode,contactaddresslocality;{document_legend},image,pdf;'
     ),
 
     // Fields
@@ -298,7 +298,7 @@ $GLOBALS['TL_DCA']['tl_sjm_jobs'] = array
             'sorting'                 => true,
             'flag'                    => 1,
             'inputType'               => 'text',
-            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50'),
+            'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
             'sql'                     => "varchar(255) NOT NULL default ''"
         ),
         'addresslocality' => array
@@ -309,7 +309,7 @@ $GLOBALS['TL_DCA']['tl_sjm_jobs'] = array
             'sorting'                 => true,
             'flag'                    => 1,
             'inputType'               => 'text',
-            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50'),
+            'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
             'sql'                     => "varchar(255) NOT NULL default ''"
         ),
         'addressregion' => array
@@ -320,7 +320,7 @@ $GLOBALS['TL_DCA']['tl_sjm_jobs'] = array
             'sorting'                 => true,
             'flag'                    => 1,
             'inputType'               => 'text',
-            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50'),
+            'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
             'sql'                     => "varchar(255) NOT NULL default ''"
         ),
         'addresspostalcode' => array
@@ -331,7 +331,7 @@ $GLOBALS['TL_DCA']['tl_sjm_jobs'] = array
             'sorting'                 => true,
             'flag'                    => 1,
             'inputType'               => 'text',
-            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50'),
+            'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
             'sql'                     => "varchar(255) NOT NULL default ''"
         ),
         'addresscountry' => array
@@ -342,7 +342,7 @@ $GLOBALS['TL_DCA']['tl_sjm_jobs'] = array
             'sorting'                 => true,
             'flag'                    => 1,
             'inputType'               => 'text',
-            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50'),
+            'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
             'sql'                     => "varchar(255) NOT NULL default ''"
         ),
         'workhours' => array
@@ -382,6 +382,72 @@ $GLOBALS['TL_DCA']['tl_sjm_jobs'] = array
             'inputType' => 'fileTree',
             'eval'      => array('filesOnly' => true, 'fieldType' => 'radio', 'tl_class' => 'clr'),
             'sql'       => "binary(16) NULL",
+        ),
+        'contactname' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_sjm_jobs']['contactname'],
+            'exclude'                 => true,
+            'search'                  => true,
+            'sorting'                 => true,
+            'flag'                    => 1,
+            'inputType'               => 'text',
+            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
+        ),
+        'contactemail' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_sjm_jobs']['contactemail'],
+            'exclude'                 => true,
+            'search'                  => true,
+            'sorting'                 => true,
+            'flag'                    => 1,
+            'inputType'               => 'text',
+            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
+        ),
+        'contactaddressstreet' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_sjm_jobs']['contactaddressstreet'],
+            'exclude'                 => true,
+            'search'                  => true,
+            'sorting'                 => true,
+            'flag'                    => 1,
+            'inputType'               => 'text',
+            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
+        ),
+        'contactaddresspostalcode' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_sjm_jobs']['contactaddresspostalcode'],
+            'exclude'                 => true,
+            'search'                  => true,
+            'sorting'                 => true,
+            'flag'                    => 1,
+            'inputType'               => 'text',
+            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
+        ),
+        'contactaddresslocality' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_sjm_jobs']['contactaddresslocality'],
+            'exclude'                 => true,
+            'search'                  => true,
+            'sorting'                 => true,
+            'flag'                    => 1,
+            'inputType'               => 'text',
+            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
+        ),
+        'contactaddressphone' => array
+        (
+            'label'                   => &$GLOBALS['TL_LANG']['tl_sjm_jobs']['contactaddressphone'],
+            'exclude'                 => true,
+            'search'                  => true,
+            'sorting'                 => true,
+            'flag'                    => 1,
+            'inputType'               => 'text',
+            'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50'),
+            'sql'                     => "varchar(255) NOT NULL default ''"
         ),
     )
 );

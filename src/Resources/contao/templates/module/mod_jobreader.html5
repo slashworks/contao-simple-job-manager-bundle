@@ -1,4 +1,116 @@
-<?php var_dump($this->headline); ?>
-<?php print_r($this->sorting); ?>
-<?php var_dump($this->job); ?>
+<h1><?php echo $this->job->title ?></h1>
+<div class="ce_simpleJob">
+    <div class="simpleJobDescription"><?php echo $this->job->description ?></div>
+    <?php if(isset($this->job->educationRequirements)): ?>
+    <div class="simpleJobResponsibilities">
+        <h3>Diese Aufgaben erwarten Sie bei uns:</h3>
+        <?php echo $this->job->responsibilities ?>
+    </div>
+    <?php endif; ?>
+	  <?php if(isset($this->job->skills)): ?>
+    <div class="simpleJobSkills">
+        <h3>Diese Fähigkeiten bringen Sie mit:</h3>
+        <?php echo $this->job->skills ?>
+    </div>
+    <?php endif; ?>
+	  <?php if(isset($this->job->educationRequirements)): ?>
+    <div class="simpleJobEdRequirements">
+        <h3>Ihre Berufsausbildung</h3>
+        <?php echo $this->job->educationRequirements ?>
+    </div>
+    <?php endif; ?>
+	  <?php if(isset($this->job->qualifications)): ?>
+    <div class="simpleJobQualifications">
+        <h3>Ihre zusätzlichen Qualifikationen</h3>
+		<?php echo $this->job->qualifications ?>
+    </div>
+    <?php endif; ?>
+	  <?php if(isset($this->job->experienceRequirements)): ?>
+    <div class="simpleJobExRequirements">
+        <h3>Berufserfahrung</h3>
+        <?php echo $this->job->experienceRequirements ?>
+    </div>
+    <?php endif; ?>
+	  <?php if($this->job->addressstreet): ?>
+    <div class="simpleJobAddress">
+        <h2>Anschrift / Job-Location</h2>
+        <div class="simpleJobExRequirements">
+            <strong><?php echo $this->organisation->organisation ?></strong><br /><br />
+            <?php echo $this->job->addressstreet ?><br />
+            <?php echo $this->job->addresspostalcode ?> <?php echo $this->job->addresslocality ?><br />
+            <?php echo $this->job->addressregion ?>
+        </div>
+    </div>
+		<?php else : ?>
+    <div class="simpleJobAddress">
+        <h2>Anschrift / Job-Location</h2>
+        <div class="simpleJobExRequirements">
+            <strong><?php echo $this->organisation->organisation ?></strong><br /><br />
+			<?php echo $this->organisation->addressstreet ?><br />
+			<?php echo $this->organisation->addresspostalcode ?> <?php echo $this->organisation->addresslocality ?><br />
+			<?php echo $this->organisation->addressregion ?>
+        </div>
+    </div>
+    <?php endif; ?>
+    <div class="simpleJobContact">
+        <h2>Ihr Ansprechpartner</h2>
+        <strong><?php echo $this->job->contactname ?></strong><br />
+        Tel.: <?php echo $this->job->contactaddressphone ?><br />
+        E-Mail: <a href="<?php echo Contao\StringUtil::encodeEmail('mailto:' . $this->job->contactemail) ?>?subject=<?php echo Contao\StringUtil::toHtml5('Anfrage zu ' . $this->job->title . '/ ID: ' . $this->job->jobnumber) ?>"><?php echo Contao\StringUtil::encodeEmail($this->job->contactemail) ?></a>
+    </div>
+    <div class="jobdata">
+        <h3>Basisdaten zur Anzeige</h3>
+        Anzeigen-ID: <?php echo $this->job->jobnumber ?><br />
+        Erstellt am: <?php echo $this->job->dateposted ?><br />
+        Gültig bis: <?php echo $this->job->validthrough ?><br />
+        Beginn der Anstellung: <?php if($this->job->startingfrom === $this->job->dateposted) { echo 'sofort'; } else { echo $this->job->startingfrom; } ?><br />
+        Art der Beschäftigung: <?php echo $this->job->employmenttype ?><br />
+        Befristung: <?php echo $this->job->jobexpiration ?><br />
+        Branche: <?php echo $this->job->business ?><br />
+    </div>
+    <div class="simpleJobDocuments">
+        <h2>Dokumente</h2>
+	      Anzeige als Bild: <a href="<?php echo $this->job->image ?>" target="_blank">Download</a><br />
+        Anzeige als PDF: <a href="<?php echo $this->job->pdf ?>" target="_blank">Download</a>
+    </div>
+</div>
 
+<script type="application/ld+json">
+	{
+		"@context": "https://schema.org/",
+		"@type": "JobPosting",
+		"title": "<?php echo $this->job->title; ?>",
+		"description": "<?php echo $this->job->description; ?>",
+		"identifier": {
+			"@type": "PropertyValue",
+			"name": "<?php echo $this->organisation->organisation; ?>",
+			"value": "Identifier"
+		},
+		"hiringOrganization" : {
+			"@type" : "Organization",
+			"name" : "<?php echo $this->organisation->organisation; ?>",
+			"sameAs" : "<?php echo $this->organisation->url; ?>",
+			"logo" : "<?php echo $this->organisation->logo; ?>"
+		},
+		"industry": "<?php echo $this->job->business; ?>",
+		"employmentType": "<?php echo $this->job->employmenttype; ?>",
+		"workHours": "<?php echo $this->job->workhours; ?>",
+		"datePosted": "<?php echo $this->job->dateposted; ?>",
+		"validThrough": "<?php echo $this->job->validthrough; ?>",
+		"jobLocation": {
+			"@type": "Place",
+			"address": {
+				"@type": "PostalAddress",
+				"streetAddress": "<?php echo $this->job->addressstreet; ?>",
+				"addressLocality": "<?php echo $this->job->addresslocality; ?>",
+				"postalCode": "<?php echo $this->job->addresspostalcode; ?>",
+				"addressCountry": "<?php echo $this->job->addresscountry; ?>"
+			}
+		},
+		"responsibilities": "<?php echo $this->job->responsibilities; ?>",
+		"skills": "<?php echo $this->job->skills; ?>",
+		"qualifications": "<?php echo $this->job->qualifications; ?>",
+		"educationRequirements": "<?php echo $this->job->educationRequirements; ?>",
+		"experienceRequirements": "<?php echo $this->job->experienceRequirements; ?>"
+	}
+</script>

@@ -2,6 +2,8 @@
 
 namespace Slashworks\ContaoSimpleJobManagerBundle\Module;
 
+use Contao\Date;
+use Contao\FilesModel;
 use Contao\Input;
 use Contao\Module;
 
@@ -48,9 +50,21 @@ class JobReader extends Module
             'alias' => \Input::get('job')
         );
 
-        $oJob = \Slashworks\ContaoSimpleJobManagerBundle\Models\Jobs::findOneBy( $aOptions );
+        $oJob = \Slashworks\ContaoSimpleJobManagerBundle\Models\Jobs::findOneBy( 'alias', $aOptions['alias'] );
+        $oParentOrganisation = \Slashworks\ContaoSimpleJobManagerBundle\Models\Organisation::findOneBy('id' , $oJob->pid);
+        //Manipulating Organistaion Data:
+        $oParentOrganisation->logo = 'http://' . $_SERVER['SERVER_NAME'] . '/' . FilesModel::findByUuid($oParentOrganisation->logo)->path;
+        //Manipulating Job Data:
+        $oJob->dateposted = Date::parse('d.m.y', $oJob->dateposted);
+        $oJob->validthrough = Date::parse('d.m.y', $oJob->validthrough);
+        $oJob->startingfrom = Date::parse('d.m.y', $oJob->startingfrom);
+        $oJob->pdf = 'http://' . $_SERVER['SERVER_NAME'] . '/' . FilesModel::findByUuid($oJob->pdf)->path;
+        $oJob->image = 'http://' . $_SERVER['SERVER_NAME'] . '/' . FilesModel::findByUuid($oJob->image)->path;
 
-        return $this->Template->job = $oJob;
+        $this->Template->organisation = $oParentOrganisation;
+        $this->Template->job = $oJob;
+
+        return;
 
     }
 }
