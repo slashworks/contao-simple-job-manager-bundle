@@ -55,9 +55,9 @@ class JobReader extends Module
         //Manipulating Organistaion Data:
         $oParentOrganisation->logo = 'http://' . $_SERVER['SERVER_NAME'] . '/' . FilesModel::findByUuid($oParentOrganisation->logo)->path;
         //Manipulating Job Data:
-        $oJob->dateposted = Date::parse('d.m.y', $oJob->dateposted);
-        $oJob->validthrough = Date::parse('d.m.y', $oJob->validthrough);
-        $oJob->startingfrom = Date::parse('d.m.y', $oJob->startingfrom);
+        $oJob->dateposted = Date::parse('Y-m-d', $oJob->dateposted);
+        $oJob->validthrough = Date::parse('Y-m-d', $oJob->validthrough);
+        $oJob->startingfrom = Date::parse('Y-m-d', $oJob->startingfrom);
         $oJob->pdf = 'http://' . $_SERVER['SERVER_NAME'] . '/' . FilesModel::findByUuid($oJob->pdf)->path;
         $oJob->image = 'http://' . $_SERVER['SERVER_NAME'] . '/' . FilesModel::findByUuid($oJob->image)->path;
 

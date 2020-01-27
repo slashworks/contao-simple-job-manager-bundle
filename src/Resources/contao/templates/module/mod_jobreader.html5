@@ -104,13 +104,15 @@
 				"streetAddress": "<?php echo $this->job->addressstreet; ?>",
 				"addressLocality": "<?php echo $this->job->addresslocality; ?>",
 				"postalCode": "<?php echo $this->job->addresspostalcode; ?>",
-				"addressCountry": "<?php echo $this->job->addresscountry; ?>"
+				"addressCountry": "<?php echo $this->job->addresscountry; ?>",
+				"addressRegion": "<?php echo $this->job->addressregion; ?>"
 			}
 		},
 		"responsibilities": "<?php echo $this->job->responsibilities; ?>",
 		"skills": "<?php echo $this->job->skills; ?>",
 		"qualifications": "<?php echo $this->job->qualifications; ?>",
 		"educationRequirements": "<?php echo $this->job->educationRequirements; ?>",
-		"experienceRequirements": "<?php echo $this->job->experienceRequirements; ?>"
+		"experienceRequirements": "<?php echo $this->job->experienceRequirements; ?>",
+		"jobStartDate": "<?php echo $this->job->startingfrom; ?>"
 	}
 </script>

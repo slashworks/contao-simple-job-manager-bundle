@@ -285,7 +285,7 @@ $GLOBALS['TL_DCA']['tl_sjm_jobs'] = array
             'exclude'   => true,
             'search'    => true,
             'inputType' => 'select',
-            'options'   => array('full-time','part-time','contract','temporary','seasonal','internship'),
+            'options'   => array('FULL_TIME','PART_TIME','CONTRACTOR','TEMPORARY','INTERN','VOLUNTEER','PER_DIEM','OTHER'),
             'reference' => &$GLOBALS['TL_LANG']['tl_sjm_jobs'],
             'eval'      => array('mandatory'=>true, 'maxlength'=>64, 'tl_class'=>'w50 wizard'),
             'sql'       => "varchar(64) NOT NULL default ''",
