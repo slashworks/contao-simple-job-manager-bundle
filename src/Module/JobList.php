@@ -4,11 +4,13 @@ namespace Slashworks\ContaoSimpleJobManagerBundle\Module;
 
 use Contao\Controller;
 use Contao\CoreBundle\ContaoCoreBundle;
+use Contao\Date;
 use Contao\FilesModel;
 use Contao\Image\PictureConfiguration;
 use Contao\Input;
 use Contao\Module;
 use Contao\PageModel;
+use Slashworks\ContaoSimpleJobManagerBundle\Models\Jobs;
 
 /**
  * Content element that lists Organisations to jump to Jobs.
@@ -47,41 +49,37 @@ class JobList extends Module
     protected function compile()
     {
 
+        $bExpiredJobs = $this->expiredjob;
+        $dTime = time();
+
         $aOptions = array
         (
-            'order'  => $this->jobsorting . ' ' . $this->sortorder,
-
+            'order'  => 'pid',$this->jobsorting . ' ' . $this->sortorder,
         );
+
+        if (!$bExpiredJobs) {
+            $aOptions['column'][] = ' validthrough >= ' . $dTime;
+        }
 
         $aJobsByOrganisation = array();
         $oOrganisations = \Slashworks\ContaoSimpleJobManagerBundle\Models\Organisation::findAll();
 
-        foreach($oOrganisations as $oOrganisation) {
+        $oJobs = Jobs::findAll($aOptions);
 
-            $aJobsByOrganisation[$oOrganisation->id]['id'] = $oOrganisation->id;
-            $aJobsByOrganisation[$oOrganisation->id]['title'] = $oOrganisation->title;
-            $aJobsByOrganisation[$oOrganisation->id]['organisation'] = $oOrganisation->organisation;
-            $oJobs = \Slashworks\ContaoSimpleJobManagerBundle\Models\Jobs::findBy( 'pid',  $oOrganisation->id);
-            $sOrganizationLogo = 'http://' . $_SERVER['SERVER_NAME'] . '/' . FilesModel::findByUuid($oOrganisation->logo)->path;
-            $oPage = PageModel::findBy('id', $this->jumpTo);
-            $aJobsByOrganisation[$oOrganisation->id]['organisationLogoUrl'] = $sOrganizationLogo;
 
-            foreach($oJobs as $oJob) {
+        /**
+         * @var $oJob Jobs
+         */
+        foreach($oJobs as $oJob) {
 
-                $sPageJumpTo = Controller::generateFrontendUrl($oPage->row(), '/job/' . $oJob->alias);
-
-                $aJobsByOrganisation[$oOrganisation->id]['jobs'][] = array
-                (
-                    'id' => $oJob->id,
-                    'jobTitle' => $oJob->title,
-                    'jobJumpTo' => $sPageJumpTo,
-                );
+                // generate URL
+                $oPage = PageModel::findBy('id', $this->jumpTo);
+                $oJob->jobJumpTo = Controller::generateFrontendUrl($oPage->row(), '/job/' . $oJob->alias);
+                $oJob->organisation = $oJob->getRelated('pid');
 
             }
 
-        }
-
-        $this->Template->jobs = $aJobsByOrganisation;
+        $this->Template->jobs = $oJobs;
 
         return;
 

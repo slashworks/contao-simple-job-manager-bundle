@@ -1,11 +1,8 @@
 <div class="ce_joblist">
     <h1><?php echo $this->headline; ?></h1>
-    <?php foreach($this->jobs as $aJobs) : ?>
-    <h2><?php echo $aJobs['organisation'] ?> - <?php echo $aJobs['title'] ?></h2>
-    <ul class="jobsList">
-        <?php foreach($aJobs['jobs'] as $aJob) : ?>
-            <li><a href="<?php echo $aJob['jobJumpTo']?>"><?php echo $aJob['jobTitle'] ?></a></li>
-        <?php endforeach; ?>
-    </ul>
+    <ul class="jobList">
+    <?php foreach($this->jobs as $oJob) : ?>
+        <li><a href="<?php echo $oJob->jobJumpTo; ?>"><?php echo $oJob->title; ?></a></li>
     <?php endforeach; ?>
+    </ul>
 </div>

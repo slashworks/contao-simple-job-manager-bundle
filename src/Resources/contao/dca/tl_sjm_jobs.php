@@ -121,7 +121,7 @@ $GLOBALS['TL_DCA']['tl_sjm_jobs'] = array
         ),
         'pid' => array
         (
-            'foreignKey'              => 'tl_sjm_organistation.title',
+            'foreignKey'              => 'tl_sjm_organisation.title',
             'sql'                     => "int(10) unsigned NOT NULL default '0'",
             'relation'                => array('type'=>'belongsTo', 'load'=>'lazy')
         ),

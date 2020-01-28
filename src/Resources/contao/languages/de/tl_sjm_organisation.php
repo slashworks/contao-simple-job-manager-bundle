@@ -12,7 +12,7 @@ $GLOBALS['TL_LANG']['tl_sjm_organisation']['organisation'][1] = 'Tragen sie hier
 $GLOBALS['TL_LANG']['tl_sjm_organisation']['url'][0] = 'Website';
 $GLOBALS['TL_LANG']['tl_sjm_organisation']['url'][1] = 'Tragen sie hier die Adresse ihrer Website (oder der Jobanzeige) ein.';
 $GLOBALS['TL_LANG']['tl_sjm_organisation']['logo'][0] = 'Ihr Logo';
-$GLOBALS['TL_LANG']['tl_sjm_organisation']['logo'][1] = 'Fügen sie hier ihr Logo ein ()';
+$GLOBALS['TL_LANG']['tl_sjm_organisation']['logo'][1] = 'Fügen sie hier ihr Logo zur Anzeige ein';
 
 $GLOBALS['TL_LANG']['tl_sjm_organisation']['address_legend'] = 'Anschrift der Organisation';
 

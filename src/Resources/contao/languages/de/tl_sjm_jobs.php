@@ -9,9 +9,11 @@ $GLOBALS['TL_LANG']['tl_sjm_jobs']['title'][0] = 'Titel';
 $GLOBALS['TL_LANG']['tl_sjm_jobs']['title'][1] = 'Tragen sie hier den Titel der Jobsuche ein.';
 $GLOBALS['TL_LANG']['tl_sjm_jobs']['business'][0] = 'Branche';
 $GLOBALS['TL_LANG']['tl_sjm_jobs']['business'][1] = 'Tragen sie hier die Branche ihres Unternehmens ein.';
+$GLOBALS['TL_LANG']['tl_sjm_jobs']['alias'][0] = 'Alias der Anzeige';
+$GLOBALS['TL_LANG']['tl_sjm_jobs']['alias'][1] = 'Alias-Bezeichnung der Anzeige (wird automatisch vergeben)';
 $GLOBALS['TL_LANG']['tl_sjm_jobs']['description'][0] = 'Text der Stellenanzeige';
 $GLOBALS['TL_LANG']['tl_sjm_jobs']['description'][1] = 'Geben sie hier den Text der Stellenanzeige ein.';
-$GLOBALS['TL_LANG']['tl_sjm_jobs']['responsibilities'][0] = 'Verantwortsungsbereich';
+$GLOBALS['TL_LANG']['tl_sjm_jobs']['responsibilities'][0] = 'Verantwortungsbereich';
 $GLOBALS['TL_LANG']['tl_sjm_jobs']['responsibilities'][1] = 'Beschreiben Sie den Verantwortungsbereich des Jobs.';
 $GLOBALS['TL_LANG']['tl_sjm_jobs']['skills'][0] = 'Fähigkeiten';
 $GLOBALS['TL_LANG']['tl_sjm_jobs']['skills'][1] = 'Beschreiben Sie die geforderten Fähigkeiten für den Job.';
@@ -54,14 +56,31 @@ $GLOBALS['TL_LANG']['tl_sjm_jobs']['image'][1] = 'Fügen sie hier ein Bild zur A
 $GLOBALS['TL_LANG']['tl_sjm_jobs']['pdf'][0] = 'PDF zur Anzeige';
 $GLOBALS['TL_LANG']['tl_sjm_jobs']['pdf'][1] = 'Fügen sie hier ein PDF-Dokument zur Anzeige ein.';
 
+$GLOBALS['TL_LANG']['tl_sjm_jobs']['contact_legend'] = 'Ansprechpartner';
+
+$GLOBALS['TL_LANG']['tl_sjm_jobs']['contactname'][0] = 'Name/Bezeichnung des Ansprechpartners';
+$GLOBALS['TL_LANG']['tl_sjm_jobs']['contactname'][1] = 'Fügen sie hier Name/Bezeichnung des Ansprechpartners zur Anzeige ein.';
+$GLOBALS['TL_LANG']['tl_sjm_jobs']['contactemail'][0] = 'E-Mail-Adresse des Ansprechpartners';
+$GLOBALS['TL_LANG']['tl_sjm_jobs']['contactemail'][1] = 'Fügen sie hier die E-Mail-Adresse des Ansprechpartners zur Anzeige ein.';
+$GLOBALS['TL_LANG']['tl_sjm_jobs']['contactaddressstreet'][0] = 'Anschrift des Ansprechpartners';
+$GLOBALS['TL_LANG']['tl_sjm_jobs']['contactaddressstreet'][1] = 'Fügen sie hier die Anschrift des Ansprechpartners zur Anzeige ein.';
+$GLOBALS['TL_LANG']['tl_sjm_jobs']['contactaddresspostalcode'][0] = 'Postleitzahl des Ansprechpartners';
+$GLOBALS['TL_LANG']['tl_sjm_jobs']['contactaddresspostalcode'][1] = 'Fügen sie hier die Postleitzahl des Ansprechpartners zur Anzeige ein.';
+$GLOBALS['TL_LANG']['tl_sjm_jobs']['contactaddresslocality'][0] = 'Ort des Ansprechpartners';
+$GLOBALS['TL_LANG']['tl_sjm_jobs']['contactaddresslocality'][1] = 'Fügen sie hier den Ort des Ansprechpartners zur Anzeige ein.';
+$GLOBALS['TL_LANG']['tl_sjm_jobs']['contactaddressphone'][0] = 'Telefonnummer des Ansprechpartners';
+$GLOBALS['TL_LANG']['tl_sjm_jobs']['contactaddressphone'][1] = 'Fügen sie hier die Telefonnummer des Ansprechpartners zur Anzeige ein.';
+
 $GLOBALS['TL_LANG']['tl_sjm_jobs']['sorting_legend'] = 'Sortierung';
 
 $GLOBALS['TL_LANG']['tl_sjm_jobs']['sorting'][0] = 'Position in der Liste';
 $GLOBALS['TL_LANG']['tl_sjm_jobs']['sorting'][1] = 'Hier können sie die Reihenfolge in der Liste einstellen.';
 
-$GLOBALS['TL_LANG']['tl_sjm_jobs']['full-time'] = 'Vollzeit';
-$GLOBALS['TL_LANG']['tl_sjm_jobs']['part-time'] = 'Teilzeit';
-$GLOBALS['TL_LANG']['tl_sjm_jobs']['contract'] = 'Auftragsarbeit';
-$GLOBALS['TL_LANG']['tl_sjm_jobs']['temporary'] = 'Temporär';
-$GLOBALS['TL_LANG']['tl_sjm_jobs']['seasonal'] = 'Saisonal';
-$GLOBALS['TL_LANG']['tl_sjm_jobs']['internship'] = 'Praktikum';
+$GLOBALS['TL_LANG']['tl_sjm_jobs']['FULL_TIME'] = 'Vollzeit';
+$GLOBALS['TL_LANG']['tl_sjm_jobs']['PART_TIME'] = 'Teilzeit';
+$GLOBALS['TL_LANG']['tl_sjm_jobs']['CONTRACTOR'] = 'Auftragsarbeit';
+$GLOBALS['TL_LANG']['tl_sjm_jobs']['TEMPORARY'] = 'Temporär';
+$GLOBALS['TL_LANG']['tl_sjm_jobs']['INTERN'] = 'Intern';
+$GLOBALS['TL_LANG']['tl_sjm_jobs']['VOLUNTEER'] = 'Praktikum';
+$GLOBALS['TL_LANG']['tl_sjm_jobs']['PER_DIEM'] = 'Tageweise';
+$GLOBALS['TL_LANG']['tl_sjm_jobs']['OTHER'] = 'Andere';

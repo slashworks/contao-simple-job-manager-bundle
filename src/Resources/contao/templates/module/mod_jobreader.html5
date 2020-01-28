@@ -56,16 +56,17 @@
         <h2>Ihr Ansprechpartner</h2>
         <strong><?php echo $this->job->contactname ?></strong><br />
         Tel.: <?php echo $this->job->contactaddressphone ?><br />
-        E-Mail: <a href="<?php echo Contao\StringUtil::encodeEmail('mailto:' . $this->job->contactemail) ?>?subject=<?php echo Contao\StringUtil::toHtml5('Anfrage zu ' . $this->job->title . '/ ID: ' . $this->job->jobnumber) ?>"><?php echo Contao\StringUtil::encodeEmail($this->job->contactemail) ?></a>
+        E-Mail: <a href="<?php echo Contao\StringUtil::encodeEmail('mailto:' . $this->job->contactemail) ?>?subject=<?php echo Contao\StringUtil::toHtml5('Anfrage zu ' . $this->job->title . '/ ID: ' . $this->job->jobnumber) ?>"><?php echo Contao\StringUtil::encodeEmail($this->job->contactemail) ?></a><br />
+        Anschrift: <?php echo $this->job->contactaddressstreet ?>, <?php echo $this->job->contactaddresspostalcode ?> <?php echo $this->job->contactaddresslocality ?>
     </div>
     <div class="jobdata">
         <h3>Basisdaten zur Anzeige</h3>
         Anzeigen-ID: <?php echo $this->job->jobnumber ?><br />
         Erstellt am: <?php echo $this->job->dateposted ?><br />
         Gültig bis: <?php echo $this->job->validthrough ?><br />
-        Beginn der Anstellung: <?php if($this->job->startingfrom === $this->job->dateposted) { echo 'sofort'; } else { echo $this->job->startingfrom; } ?><br />
-        Art der Beschäftigung: <?php echo $this->job->employmenttype ?><br />
-        Befristung: <?php echo $this->job->jobexpiration ?><br />
+        Beginn der Anstellung: <?php if($this->job->startingfrom === $this->job->dateposted) { echo 'ab sofort'; } else { echo $this->job->startingfrom; } ?><br />
+        Art der Beschäftigung: <?php echo $GLOBALS['TL_LANG']['tl_sjm_jobs'][$this->job->employmenttype] ?><br />
+        Dauer der Anstellung: <?php echo $this->job->jobexpiration ?><br />
         Branche: <?php echo $this->job->business ?><br />
     </div>
     <div class="simpleJobDocuments">
@@ -95,8 +96,9 @@
 		"industry": "<?php echo $this->job->business; ?>",
 		"employmentType": "<?php echo $this->job->employmenttype; ?>",
 		"workHours": "<?php echo $this->job->workhours; ?>",
-		"datePosted": "<?php echo $this->job->dateposted; ?>",
-		"validThrough": "<?php echo $this->job->validthrough; ?>",
+		"datePosted": "<?php echo $this->job->Gdateposted; ?>",
+		"validThrough": "<?php echo $this->job->Gvalidthrough; ?>",
+		<?php if($this->job->addressstreet) : ?>
 		"jobLocation": {
 			"@type": "Place",
 			"address": {
@@ -108,11 +110,24 @@
 				"addressRegion": "<?php echo $this->job->addressregion; ?>"
 			}
 		},
+		<?php else : ?>
+		"jobLocation": {
+			"@type": "Place",
+			"address": {
+				"@type": "PostalAddress",
+				"streetAddress": "<?php echo $this->organisation->addressstreet; ?>",
+				"addressLocality": "<?php echo $this->organisation->addresslocality; ?>",
+				"postalCode": "<?php echo $this->organisation->addresspostalcode; ?>",
+				"addressCountry": "<?php echo $this->organisation->addresscountry; ?>",
+				"addressRegion": "<?php echo $this->organisation->addressregion; ?>"
+			}
+		},
+		<?php endif; ?>
 		"responsibilities": "<?php echo $this->job->responsibilities; ?>",
 		"skills": "<?php echo $this->job->skills; ?>",
 		"qualifications": "<?php echo $this->job->qualifications; ?>",
 		"educationRequirements": "<?php echo $this->job->educationRequirements; ?>",
 		"experienceRequirements": "<?php echo $this->job->experienceRequirements; ?>",
-		"jobStartDate": "<?php echo $this->job->startingfrom; ?>"
+		"jobStartDate": "<?php echo $this->job->Gstartingfrom; ?>"
 	}
 </script>

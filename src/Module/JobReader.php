@@ -2,6 +2,7 @@
 
 namespace Slashworks\ContaoSimpleJobManagerBundle\Module;
 
+use Contao\Controller;
 use Contao\Date;
 use Contao\FilesModel;
 use Contao\Input;
@@ -44,6 +45,7 @@ class JobReader extends Module
      */
     protected function compile()
     {
+        Controller::loadLanguageFile('tl_sjm_jobs');
 
         $aOptions = array
         (
@@ -55,9 +57,12 @@ class JobReader extends Module
         //Manipulating Organistaion Data:
         $oParentOrganisation->logo = 'http://' . $_SERVER['SERVER_NAME'] . '/' . FilesModel::findByUuid($oParentOrganisation->logo)->path;
         //Manipulating Job Data:
-        $oJob->dateposted = Date::parse('Y-m-d', $oJob->dateposted);
-        $oJob->validthrough = Date::parse('Y-m-d', $oJob->validthrough);
-        $oJob->startingfrom = Date::parse('Y-m-d', $oJob->startingfrom);
+        $oJob->dateposted = Date::parse('d.m.Y', $oJob->dateposted);
+        $oJob->validthrough = Date::parse('d.m.Y', $oJob->validthrough);
+        $oJob->startingfrom = Date::parse('d.m.Y', $oJob->startingfrom);
+        $oJob->Gdateposted = Date::parse('Y-m-d', $oJob->dateposted);
+        $oJob->Gvalidthrough = Date::parse('Y-m-d', $oJob->validthrough);
+        $oJob->Gstartingfrom = Date::parse('Y-m-d', $oJob->startingfrom);
         $oJob->pdf = 'http://' . $_SERVER['SERVER_NAME'] . '/' . FilesModel::findByUuid($oJob->pdf)->path;
         $oJob->image = 'http://' . $_SERVER['SERVER_NAME'] . '/' . FilesModel::findByUuid($oJob->image)->path;
 
