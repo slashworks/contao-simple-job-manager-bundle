@@ -69,11 +69,13 @@
         Dauer der Anstellung: <?php echo $this->job->jobexpiration ?><br />
         Branche: <?php echo $this->job->business ?><br />
     </div>
+    <?php if ($this->job->pdf): ?>
     <div class="simpleJobDocuments">
         <h2>Dokumente</h2>
-	      Anzeige als Bild: <a href="<?php echo $this->job->image ?>" target="_blank">Download</a><br />
+	      <?php if ($this->job->image): ?>Anzeige als Bild: <a href="<?php echo $this->job->image ?>" target="_blank">Download</a><br /><?php endif; ?>
         Anzeige als PDF: <a href="<?php echo $this->job->pdf ?>" target="_blank">Download</a>
     </div>
+	  <?php endif; ?>
 </div>
 
 <script type="application/ld+json">

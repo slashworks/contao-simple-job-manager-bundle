@@ -57,14 +57,21 @@ class JobReader extends Module
         //Manipulating Organistaion Data:
         $oParentOrganisation->logo = 'http://' . $_SERVER['SERVER_NAME'] . '/' . FilesModel::findByUuid($oParentOrganisation->logo)->path;
         //Manipulating Job Data:
-        $oJob->dateposted = Date::parse('d.m.Y', $oJob->dateposted);
-        $oJob->validthrough = Date::parse('d.m.Y', $oJob->validthrough);
-        $oJob->startingfrom = Date::parse('d.m.Y', $oJob->startingfrom);
-        $oJob->Gdateposted = Date::parse('Y-m-d', $oJob->dateposted);
-        $oJob->Gvalidthrough = Date::parse('Y-m-d', $oJob->validthrough);
-        $oJob->Gstartingfrom = Date::parse('Y-m-d', $oJob->startingfrom);
-        $oJob->pdf = 'http://' . $_SERVER['SERVER_NAME'] . '/' . FilesModel::findByUuid($oJob->pdf)->path;
-        $oJob->image = 'http://' . $_SERVER['SERVER_NAME'] . '/' . FilesModel::findByUuid($oJob->image)->path;
+        $origDateposted = $oJob->dateposted;
+        $origValidthrough = $oJob->validthrough;
+        $origStartingfrom = $oJob->startingfrom;
+        $oJob->dateposted = Date::parse('d.m.Y', $origDateposted);
+        $oJob->validthrough = Date::parse('d.m.Y', $origValidthrough);
+        $oJob->startingfrom = Date::parse('d.m.Y', $origStartingfrom);
+        $oJob->Gdateposted = Date::parse('Y-m-d', $origDateposted);
+        $oJob->Gvalidthrough = Date::parse('Y-m-d', $origValidthrough);
+        $oJob->Gstartingfrom = Date::parse('Y-m-d', $origStartingfrom);
+        if ($oJob->pdf) {
+            $oJob->pdf = 'http://' . $_SERVER['SERVER_NAME'] . '/' . FilesModel::findByUuid($oJob->pdf)->path;
+        }
+        if ($oJob->image) {
+            $oJob->image = 'http://' . $_SERVER['SERVER_NAME'] . '/' . FilesModel::findByUuid( $oJob->image )->path;
+        }
 
         $this->Template->organisation = $oParentOrganisation;
         $this->Template->job = $oJob;
