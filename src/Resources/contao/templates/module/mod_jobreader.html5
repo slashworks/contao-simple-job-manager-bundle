@@ -83,7 +83,7 @@
 		"@context": "https://schema.org/",
 		"@type": "JobPosting",
 		"title": "<?php echo $this->job->title; ?>",
-		"description": "<?php echo $this->job->description; ?>",
+		"description": "<?php echo strip_tags($this->job->description); ?>",
 		"identifier": {
 			"@type": "PropertyValue",
 			"name": "<?php echo $this->organisation->organisation; ?>",
@@ -125,11 +125,11 @@
 			}
 		},
 		<?php endif; ?>
-		"responsibilities": "<?php echo $this->job->responsibilities; ?>",
-		"skills": "<?php echo $this->job->skills; ?>",
-		"qualifications": "<?php echo $this->job->qualifications; ?>",
-		"educationRequirements": "<?php echo $this->job->educationRequirements; ?>",
-		"experienceRequirements": "<?php echo $this->job->experienceRequirements; ?>",
+		"responsibilities": "<?php echo strip_tags($this->job->responsibilities); ?>",
+		"skills": "<?php echo strip_tags($this->job->skills); ?>",
+		"qualifications": "<?php echo strip_tags($this->job->qualifications); ?>",
+		"educationRequirements": "<?php echo strip_tags($this->job->educationRequirements); ?>",
+		"experienceRequirements": "<?php echo strip_tags($this->job->experienceRequirements); ?>",
 		"jobStartDate": "<?php echo $this->job->Gstartingfrom; ?>"
 	}
 </script>
