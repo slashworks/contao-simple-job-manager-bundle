@@ -12,6 +12,9 @@
     "require": {
         "contao/core-bundle": "^4.4.8"
     },
+    "extra": {
+        "contao-manager-plugin": "Slashworks\\ContaoSimpleJobManagerBundle\\ContaoManager\\Plugin"
+    },
     "autoload": {
         "psr-4": {
             "Slashworks\\ContaoSimpleJobManagerBundle\\": "src/"
