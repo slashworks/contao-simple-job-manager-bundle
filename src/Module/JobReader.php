@@ -3,10 +3,12 @@
 namespace Slashworks\ContaoSimpleJobManagerBundle\Module;
 
 use Contao\Controller;
+use Contao\CoreBundle\Exception\PageNotFoundException;
 use Contao\Date;
 use Contao\FilesModel;
 use Contao\Input;
 use Contao\Module;
+use Symfony\Component\VarDumper\VarDumper;
 
 /**
  * Content element that lists Organisations to jump to Jobs.
@@ -52,7 +54,16 @@ class JobReader extends Module
             'alias' => \Input::get('job')
         );
 
-        $oJob = \Slashworks\ContaoSimpleJobManagerBundle\Models\Jobs::findOneBy( 'alias', $aOptions['alias'] );
+        $oJob = \Slashworks\ContaoSimpleJobManagerBundle\Models\Jobs::findOneBy('alias', $aOptions['alias']);
+
+        if ($oJob === null) {
+            throw new PageNotFoundException('Page not found: ' . \Environment::get('uri'));
+        }
+
+        if ($oJob->validthrough < time()) {
+            throw new PageNotFoundException('Page not found: ' . \Environment::get('uri'));
+        }
+
         $oParentOrganisation = \Slashworks\ContaoSimpleJobManagerBundle\Models\Organisation::findOneBy('id' , $oJob->pid);
         //Manipulating Organistaion Data:
         $oParentOrganisation->logo = 'http://' . $_SERVER['SERVER_NAME'] . '/' . FilesModel::findByUuid($oParentOrganisation->logo)->path;
@@ -75,8 +86,5 @@ class JobReader extends Module
 
         $this->Template->organisation = $oParentOrganisation;
         $this->Template->job = $oJob;
-
-        return;
-
     }
 }
