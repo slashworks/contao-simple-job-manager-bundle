@@ -84,6 +84,10 @@ class JobReader extends Module
             $oJob->image = 'http://' . $_SERVER['SERVER_NAME'] . '/' . FilesModel::findByUuid( $oJob->image )->path;
         }
 
+         /* @var PageModel $objPage */
+        global $objPage;
+
+        $objPage->title = $oJob->title;
         $this->Template->organisation = $oParentOrganisation;
         $this->Template->job = $oJob;
     }
