@@ -65,6 +65,9 @@ class JobReader extends Module
         }
 
         $oParentOrganisation = \Slashworks\ContaoSimpleJobManagerBundle\Models\Organisation::findOneBy('id' , $oJob->pid);
+        if(null == $oJob){
+            throw new PageNotFoundException('Page not found: ' . \Environment::get('uri'));
+        }        
         //Manipulating Organistaion Data:
         $oParentOrganisation->logo = 'http://' . $_SERVER['SERVER_NAME'] . '/' . FilesModel::findByUuid($oParentOrganisation->logo)->path;
         //Manipulating Job Data:
