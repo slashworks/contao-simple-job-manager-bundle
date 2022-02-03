@@ -1,5 +1,7 @@
 <?php
 
+use Slashworks\ContaoSimpleJobManagerBundle\EventListener\GetSearchablePagesListener;
+
 /**
  * Backend modules
  */
@@ -31,3 +33,8 @@ $GLOBALS['FE_MOD']['sjm']['job-reader'] = 'Slashworks\ContaoSimpleJobManagerBund
 
 
 $GLOBALS['sjm']['jobsorting']['options'] = array('dateposted','validthrough','title','jobnumber','business');
+
+/**
+ * Register Hooks
+ */
+$GLOBALS['TL_HOOKS']['getSearchablePages'][] = [GetSearchablePagesListener::class, '__invoke'];

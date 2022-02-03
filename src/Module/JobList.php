@@ -54,7 +54,7 @@ class JobList extends Module
 
         $aOptions = array
         (
-            'order'  => 'pid',$this->jobsorting . ' ' . $this->sortorder,
+            'order'  => 'pid, '.$this->jobsorting . ' ' . $this->sortorder,
         );
 
         if (!$bExpiredJobs) {
@@ -74,7 +74,7 @@ class JobList extends Module
 
                 // generate URL
                 $oPage = PageModel::findBy('id', $this->jumpTo);
-                $oJob->jobJumpTo = Controller::generateFrontendUrl($oPage->row(), '/job/' . $oJob->alias);
+                $oJob->jobJumpTo = Controller::generateFrontendUrl($oPage->row(), '/' . $oJob->alias);
                 $oJob->organisation = $oJob->getRelated('pid');
 
             }
