@@ -61,6 +61,11 @@ class GetSearchablePagesListener
                 continue;
             }
 
+            // Check if indexing is disabled
+            if ('noindex,nofollow' === $page->robots) {
+                continue;
+            }
+
             $page->loadDetails();
 
             // Check if page belongs to current root
