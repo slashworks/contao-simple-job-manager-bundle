@@ -80,7 +80,7 @@ class GetSearchablePagesListener
                 continue;
             }
 
-            $jobs = Jobs::findBy(['pid IN('.implode(',', array_map('intval', $organisations)).')'], []);
+            $jobs = Jobs::findBy(['pid IN(' . implode(',', array_map('intval', $organisations)) . ')'], []);
 
             if (null === $jobs) {
                 continue;

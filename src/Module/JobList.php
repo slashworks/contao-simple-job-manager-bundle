@@ -3,13 +3,9 @@
 namespace Slashworks\ContaoSimpleJobManagerBundle\Module;
 
 use Contao\Controller;
-use Contao\CoreBundle\ContaoCoreBundle;
-use Contao\Date;
-use Contao\FilesModel;
-use Contao\Image\PictureConfiguration;
-use Contao\Input;
 use Contao\Module;
 use Contao\PageModel;
+use Contao\StringUtil;
 use Slashworks\ContaoSimpleJobManagerBundle\Models\Jobs;
 
 /**
@@ -58,11 +54,14 @@ class JobList extends Module
         );
 
         if (!$bExpiredJobs) {
-            $aOptions['column'][] = ' validthrough >= ' . $dTime;
+            $aOptions['column'][] = 'validthrough >= ' . $dTime;
         }
 
-        $aJobsByOrganisation = array();
-        $oOrganisations = \Slashworks\ContaoSimpleJobManagerBundle\Models\Organisation::findAll();
+        $organisations = StringUtil::deserialize($this->organisation, true);
+
+        if (!empty($organisations)) {
+            $aOptions['column'][] = 'pid IN(' . implode(',', array_map('intval', $organisations)) . ')';
+        }
 
         $oJobs = Jobs::findAll($aOptions);
 
