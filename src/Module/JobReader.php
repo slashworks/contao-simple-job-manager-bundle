@@ -4,6 +4,7 @@ namespace Slashworks\ContaoSimpleJobManagerBundle\Module;
 
 use Contao\Controller;
 use Contao\CoreBundle\Exception\PageNotFoundException;
+use Contao\CoreBundle\Exception\RedirectResponseException;
 use Contao\Date;
 use Contao\FilesModel;
 use Contao\Input;
@@ -49,9 +50,14 @@ class JobReader extends Module
     {
         Controller::loadLanguageFile('tl_sjm_jobs');
 
+        // Redirect to new URL without /job
+        if (!empty($GLOBALS['objPage']) && null !== Input::get('job')) {
+            throw new RedirectResponseException($GLOBALS['objPage']->getAbsoluteUrl('/'.Input::get('job')));
+        }
+
         $aOptions = array
         (
-            'alias' => \Input::get('job')
+            'alias' => Input::get('auto_item')
         );
 
         $oJob = \Slashworks\ContaoSimpleJobManagerBundle\Models\Jobs::findOneBy('alias', $aOptions['alias']);

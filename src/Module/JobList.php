@@ -3,13 +3,9 @@
 namespace Slashworks\ContaoSimpleJobManagerBundle\Module;
 
 use Contao\Controller;
-use Contao\CoreBundle\ContaoCoreBundle;
-use Contao\Date;
-use Contao\FilesModel;
-use Contao\Image\PictureConfiguration;
-use Contao\Input;
 use Contao\Module;
 use Contao\PageModel;
+use Contao\StringUtil;
 use Slashworks\ContaoSimpleJobManagerBundle\Models\Jobs;
 
 /**
@@ -54,15 +50,18 @@ class JobList extends Module
 
         $aOptions = array
         (
-            'order'  => 'pid',$this->jobsorting . ' ' . $this->sortorder,
+            'order'  => 'pid, '.$this->jobsorting . ' ' . $this->sortorder,
         );
 
         if (!$bExpiredJobs) {
-            $aOptions['column'][] = ' validthrough >= ' . $dTime;
+            $aOptions['column'][] = 'validthrough >= ' . $dTime;
         }
 
-        $aJobsByOrganisation = array();
-        $oOrganisations = \Slashworks\ContaoSimpleJobManagerBundle\Models\Organisation::findAll();
+        $organisations = StringUtil::deserialize($this->organisation, true);
+
+        if (!empty($organisations)) {
+            $aOptions['column'][] = 'pid IN(' . implode(',', array_map('intval', $organisations)) . ')';
+        }
 
         $oJobs = Jobs::findAll($aOptions);
 
@@ -74,7 +73,7 @@ class JobList extends Module
 
                 // generate URL
                 $oPage = PageModel::findBy('id', $this->jumpTo);
-                $oJob->jobJumpTo = Controller::generateFrontendUrl($oPage->row(), '/job/' . $oJob->alias);
+                $oJob->jobJumpTo = Controller::generateFrontendUrl($oPage->row(), '/' . $oJob->alias);
                 $oJob->organisation = $oJob->getRelated('pid');
 
             }
