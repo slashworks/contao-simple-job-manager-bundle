@@ -1,5 +1,5 @@
 <h1><?php echo $this->job->title ?></h1>
-<div class="ce_simpleJob">
+<div class="ce_simpleJob <?php echo $this->class; ?>">
     <div class="simpleJobDescription"><?php echo $this->job->description ?></div>
     <?php if(isset($this->job->educationRequirements)): ?>
     <div class="simpleJobResponsibilities">
