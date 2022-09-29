@@ -34,7 +34,6 @@ class JobReader extends Module
         if ( TL_MODE == 'BE' ) {
             /** @var BackendTemplate|object $objTemplate */
             $objTemplate = new \BackendTemplate( 'be_wildcard' );
-
             $objTemplate->wildcard = '### Jobleser ###';
 
             return $objTemplate->parse();
@@ -48,6 +47,7 @@ class JobReader extends Module
      */
     protected function compile()
     {
+
         Controller::loadLanguageFile('tl_sjm_jobs');
 
         // Redirect to new URL without /job
@@ -71,9 +71,8 @@ class JobReader extends Module
         }
 
         $oParentOrganisation = \Slashworks\ContaoSimpleJobManagerBundle\Models\Organisation::findOneBy('id' , $oJob->pid);
-        if(null == $oJob){
-            throw new PageNotFoundException('Page not found: ' . \Environment::get('uri'));
-        }        
+
+
         //Manipulating Organistaion Data:
         $oParentOrganisation->logo = 'http://' . $_SERVER['SERVER_NAME'] . '/' . FilesModel::findByUuid($oParentOrganisation->logo)->path;
         //Manipulating Job Data:
@@ -81,7 +80,7 @@ class JobReader extends Module
         $origValidthrough = $oJob->validthrough;
         $origStartingfrom = $oJob->startingfrom;
         $oJob->dateposted = Date::parse('d.m.Y', $origDateposted);
-        $oJob->validthrough = Date::parse('d.m.Y', $origValidthrough);
+//        $oJob->validthrough = Date::parse('d.m.Y', $origValidthrough);
         $oJob->startingfrom = Date::parse('d.m.Y', $origStartingfrom);
         $oJob->Gdateposted = Date::parse('Y-m-d', $origDateposted);
         $oJob->Gvalidthrough = Date::parse('Y-m-d', $origValidthrough);
@@ -93,10 +92,11 @@ class JobReader extends Module
             $oJob->image = 'http://' . $_SERVER['SERVER_NAME'] . '/' . FilesModel::findByUuid( $oJob->image )->path;
         }
 
-         /* @var PageModel $objPage */
+        /* @var PageModel $objPage */
         global $objPage;
+        $objPage->pageTitle = ($oJob->metaTitle) ? $oJob->metaTitle : $oJob->title;
+        $objPage->description = ($oJob->metaDescription) ? $oJob->metaDescription : '';
 
-        $objPage->title = $oJob->title;
         $this->Template->organisation = $oParentOrganisation;
         $this->Template->job = $oJob;
     }

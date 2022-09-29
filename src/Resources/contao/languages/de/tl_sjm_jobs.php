@@ -27,6 +27,10 @@ $GLOBALS['TL_LANG']['tl_sjm_jobs']['jobnumber'][0] = 'Jobnummer (interne Bezeich
 $GLOBALS['TL_LANG']['tl_sjm_jobs']['jobnumber'][1] = 'Geben sie hier die Jobnummer ein.';
 $GLOBALS['TL_LANG']['tl_sjm_jobs']['employmenttype'][0] = 'Art der Beschäftigung';
 $GLOBALS['TL_LANG']['tl_sjm_jobs']['employmenttype'][1] = 'Tragen sie hier die Art/Umfang des Jobs ein.';
+$GLOBALS['TL_LANG']['tl_sjm_jobs']['metaTitle'][0] = 'Meta Titel';
+$GLOBALS['TL_LANG']['tl_sjm_jobs']['metaTitle'][1] = 'Hier können Sie den Titel der Seite angeben';
+$GLOBALS['TL_LANG']['tl_sjm_jobs']['metaDescription'][0] = 'Meta Beschreibung';
+$GLOBALS['TL_LANG']['tl_sjm_jobs']['metaDescription'][1] = 'Hier können Sie die Beschreibung der Seite angeben';
 
 $GLOBALS['TL_LANG']['tl_sjm_jobs']['date_legend'] = 'Job - Beginn, Zeitraum, Befristung';
 
@@ -57,6 +61,8 @@ $GLOBALS['TL_LANG']['tl_sjm_jobs']['pdf'][0] = 'PDF zur Anzeige';
 $GLOBALS['TL_LANG']['tl_sjm_jobs']['pdf'][1] = 'Fügen sie hier ein PDF-Dokument zur Anzeige ein.';
 
 $GLOBALS['TL_LANG']['tl_sjm_jobs']['contact_legend'] = 'Ansprechpartner';
+$GLOBALS['TL_LANG']['tl_sjm_jobs']['description_legend'] = 'Beschreibungen';
+$GLOBALS['TL_LANG']['tl_sjm_jobs']['meta_legend'] = 'Meta Tags';
 
 $GLOBALS['TL_LANG']['tl_sjm_jobs']['contactname'][0] = 'Name/Bezeichnung des Ansprechpartners';
 $GLOBALS['TL_LANG']['tl_sjm_jobs']['contactname'][1] = 'Fügen sie hier Name/Bezeichnung des Ansprechpartners zur Anzeige ein.';

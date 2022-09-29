@@ -68,7 +68,7 @@ $GLOBALS['TL_DCA']['tl_sjm_jobs'] = array
                 'label'               => &$GLOBALS['TL_LANG']['tl_sjm_jobs']['delete'],
                 'href'                => 'act=delete',
                 'icon'                => 'delete.svg',
-                'attributes'          => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\'))return false;Backend.getScrollOffset()"'
+                'attributes'          => 'onclick="if(!confirm(\'' . ($GLOBALS['TL_LANG']['MSC']['deleteConfirm'] ?? null ) . '\'))return false;Backend.getScrollOffset()"'
             ),
             'show' => array
             (
@@ -83,7 +83,7 @@ $GLOBALS['TL_DCA']['tl_sjm_jobs'] = array
     'palettes' => array
     (
         '__selector__'                => array('addImage', 'addEnclosure', 'source', 'overwriteMeta'),
-        'default'                     => '{title_legend},title,business,alias,description,responsibilities,skills,qualifications,educationRequirements,experienceRequirements,jobnumber,employmenttype;{date_legend},dateposted,validthrough,startingfrom,workingtimes,jobexpiration;{address_legend},addressstreet,addresslocality,addressregion,addresspostalcode,addresscountry;{contact_legend},contactname,contactemail,contactaddressphone,contactaddressstreet,contactaddresspostalcode,contactaddresslocality;{document_legend},image,pdf;'
+        'default'                     => '{title_legend},title,business,alias;{meta_legend},metaTitle,metaDescription;{description_legend},description,responsibilities,skills,qualifications,educationRequirements,experienceRequirements,jobnumber,employmenttype;{date_legend},dateposted,validthrough,startingfrom,workingtimes,jobexpiration;{address_legend},addressstreet,addresslocality,addressregion,addresspostalcode,addresscountry;{contact_legend},contactname,contactemail,contactaddressphone,contactaddressstreet,contactaddresspostalcode,contactaddresslocality;{document_legend},image,pdf;'
     ),
 
     // Fields
@@ -117,6 +117,24 @@ $GLOBALS['TL_DCA']['tl_sjm_jobs'] = array
             'inputType'               => 'text',
             'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50'),
             'sql'                     => "varchar(255) NOT NULL default ''"
+        ),
+        'metaTitle'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_sjm_jobs']['metaTitle'],
+            'exclude'   => true,
+            'search'    => true,
+            'inputType' => 'text',
+            'eval'      => array('mandatory' => false, 'maxlength' => 255, 'tl_class' => 'w50 clr'),
+            'sql'       => "varchar(255) NOT NULL default ''",
+        ),
+        'metaDescription'  => array
+        (
+            'label'     => &$GLOBALS['TL_LANG']['tl_sjm_jobs']['metaDescription'],
+            'exclude'   => true,
+            'search'    => true,
+            'inputType' => 'text',
+            'eval'      => array('mandatory' => false, 'tl_class' => 'clr'),
+            'sql'       => "varchar(255) NOT NULL default ''",
         ),
         'business'  => array
         (
@@ -536,7 +554,7 @@ class tl_sjm_jobs extends Backend
 
         // Update the database
         $this->Database->prepare("UPDATE tl_sjm_jobs SET tstamp=" . time() . ", featured='" . ($blnVisible ? 1 : '') . "' WHERE id=?")
-                       ->execute($intId);
+            ->execute($intId);
 
         $objVersions->create();
     }
@@ -610,8 +628,8 @@ class tl_sjm_jobs extends Backend
         if ($dc)
         {
             $objRow = $this->Database->prepare("SELECT * FROM tl_sjm_jobs WHERE id=?")
-                                     ->limit(1)
-                                     ->execute($intId);
+                ->limit(1)
+                ->execute($intId);
 
             if ($objRow->numRows)
             {
@@ -643,7 +661,7 @@ class tl_sjm_jobs extends Backend
 
         // Update the database
         $this->Database->prepare("UPDATE tl_sjm_jobs SET tstamp=$time, published='" . ($blnVisible ? '1' : '') . "' WHERE id=?")
-                       ->execute($intId);
+            ->execute($intId);
 
         if ($dc)
         {
@@ -693,7 +711,7 @@ class tl_sjm_jobs extends Backend
         }
 
         $objAlias = $this->Database->prepare("SELECT id FROM tl_sjm_jobs WHERE alias=? AND id!=?")
-                                   ->execute($varValue, $dc->id);
+            ->execute($varValue, $dc->id);
 
         // Check whether the news alias exists
         if ($objAlias->numRows)
