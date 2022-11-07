@@ -74,7 +74,7 @@ class JobReader extends Module
 
 
         //Manipulating Organistaion Data:
-        $oParentOrganisation->logo = 'http://' . $_SERVER['SERVER_NAME'] . '/' . FilesModel::findByUuid($oParentOrganisation->logo)->path;
+        $oParentOrganisation->logo = 'https://' . $_SERVER['SERVER_NAME'] . '/' . FilesModel::findByUuid($oParentOrganisation->logo)->path;
         //Manipulating Job Data:
         $origDateposted = $oJob->dateposted;
         $origValidthrough = $oJob->validthrough;
