@@ -10,6 +10,8 @@ use Contao\FilesModel;
 use Contao\Input;
 use Contao\Module;
 use Contao\System;
+use Contao\PageModel;
+use Contao\Environment;
 use Contao\BackendTemplate;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\VarDumper\VarDumper;
@@ -67,11 +69,11 @@ class JobReader extends Module
         $oJob = Jobs::findOneBy('alias', $aOptions['alias']);
 
         if ($oJob === null) {
-            throw new PageNotFoundException('Page not found: ' . \Environment::get('uri'));
+            throw new PageNotFoundException('Page not found: ' . Environment::get('uri'));
         }
 
         if ($oJob->validthrough < time()) {
-            throw new PageNotFoundException('Page not found: ' . \Environment::get('uri'));
+            throw new PageNotFoundException('Page not found: ' . Environment::get('uri'));
         }
 
         $oParentOrganisation = Organisation::findOneBy('id' , $oJob->pid);

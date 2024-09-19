@@ -10,6 +10,7 @@ use Slashworks\ContaoSimpleJobManagerBundle\Models\Jobs;
 use Contao\System;
 use Symfony\Component\HttpFoundation\Request;
 use Contao\BackendTemplate;
+use Contao\CoreBundle\Controller\Page;
 
 /**
  * Content element that lists Organisations to jump to Jobs.

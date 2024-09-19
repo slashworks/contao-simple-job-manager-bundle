@@ -1,5 +1,14 @@
 <?php
 
+use Contao\DC_Table;
+use Contao\Backend;
+use Contao\Input;
+use Contao\Image;
+use Contao\StringUtil;
+use Contao\DataContainer;
+use Contao\Versions;
+use Contao\Date;
+use Contao\Config;
 /*
  * This file is part of Contao.
  *
@@ -13,7 +22,7 @@ $GLOBALS['TL_DCA']['tl_sjm_jobs'] = array
     // Config
     'config' => array
     (
-        'dataContainer'               => 'Table',
+        'dataContainer'               => DC_Table::class,
         'ptable'                      => 'tl_sjm_organisation',
         'switchToEdit'                => true,
         'enableVersioning'            => true,
@@ -156,7 +165,7 @@ $GLOBALS['TL_DCA']['tl_sjm_jobs'] = array
             (
                 array('tl_sjm_jobs', 'generateAlias')
             ),
-            'sql'                     => "varchar(255) COLLATE utf8_bin NOT NULL default ''"
+            'sql'                     => "varchar(255) BINARY NOT NULL default ''"
         ),
         'description' => array
         (
@@ -459,7 +468,6 @@ class tl_sjm_jobs extends Backend
     public function __construct()
     {
         parent::__construct();
-        $this->import('BackendUser', 'User');
     }
 
     /**
