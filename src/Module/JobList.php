@@ -77,7 +77,7 @@ class JobList extends Module
 
                 // generate URL
                 $oPage = PageModel::findBy('id', $this->jumpTo);
-                $oJob->jobJumpTo = $oPage->getFrontendUrl($oJob->alias);
+                $oJob->jobJumpTo = $oPage->getFrontendUrl('/'.$oJob->alias);
                 $oJob->organisation = $oJob->getRelated('pid');
 
             }
