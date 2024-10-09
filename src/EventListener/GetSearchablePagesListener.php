@@ -1,5 +1,6 @@
 <?php
 
+
 namespace Slashworks\ContaoSimpleJobManagerBundle\EventListener;
 
 use Contao\ContentModel;
@@ -16,10 +17,10 @@ class GetSearchablePagesListener
      * @param int|null $rootId
      * @param bool $isSitemap
      * @param string $language
-     * 
+     *
      * @return array
      */
-    public function __invoke($pages, $rootId = null, $isSitemap = false, $language = null)
+    public function __invoke( array $pages, int|null $rootId = null, bool $isSitemap = false, string|null $language = null): array
     {
         // Load all job list modules
         $modules = ModuleModel::findByType('job-list');
@@ -40,7 +41,7 @@ class GetSearchablePagesListener
             $time = Date::floorToMinute();
             $elements = ContentModel::findBy([
                 "invisible='' AND (start='' OR start<='$time') AND (stop='' OR stop>'$time')",
-                "type = 'module'", 
+                "type = 'module'",
                 "ptable = 'tl_article'",
                 'module = ?',
             ], [$module->id]);

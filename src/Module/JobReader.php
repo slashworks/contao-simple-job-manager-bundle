@@ -9,8 +9,14 @@ use Contao\Date;
 use Contao\FilesModel;
 use Contao\Input;
 use Contao\Module;
+use Contao\System;
+use Contao\PageModel;
+use Contao\Environment;
+use Contao\BackendTemplate;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\VarDumper\VarDumper;
-
+use Slashworks\ContaoSimpleJobManagerBundle\Models\Jobs;
+use Slashworks\ContaoSimpleJobManagerBundle\Models\Organisation;
 /**
  * Content element that lists Organisations to jump to Jobs.
  *
@@ -31,9 +37,9 @@ class JobReader extends Module
      */
     public function generate()
     {
-        if ( TL_MODE == 'BE' ) {
+        if (System::getContainer()->get('contao.routing.scope_matcher')->isBackendRequest(System::getContainer()->get('request_stack')->getCurrentRequest() ?? Request::create('')))  {
             /** @var BackendTemplate|object $objTemplate */
-            $objTemplate = new \BackendTemplate( 'be_wildcard' );
+            $objTemplate = new BackendTemplate( 'be_wildcard' );
             $objTemplate->wildcard = '### Jobleser ###';
 
             return $objTemplate->parse();
@@ -60,17 +66,17 @@ class JobReader extends Module
             'alias' => Input::get('auto_item')
         );
 
-        $oJob = \Slashworks\ContaoSimpleJobManagerBundle\Models\Jobs::findOneBy('alias', $aOptions['alias']);
+        $oJob = Jobs::findOneBy('alias', $aOptions['alias']);
 
         if ($oJob === null) {
-            throw new PageNotFoundException('Page not found: ' . \Environment::get('uri'));
+            throw new PageNotFoundException('Page not found: ' . Environment::get('uri'));
         }
 
         if ($oJob->validthrough < time()) {
-            throw new PageNotFoundException('Page not found: ' . \Environment::get('uri'));
+            throw new PageNotFoundException('Page not found: ' . Environment::get('uri'));
         }
 
-        $oParentOrganisation = \Slashworks\ContaoSimpleJobManagerBundle\Models\Organisation::findOneBy('id' , $oJob->pid);
+        $oParentOrganisation = Organisation::findOneBy('id' , $oJob->pid);
 
 
         //Manipulating Organistaion Data:

@@ -7,6 +7,10 @@ use Contao\Module;
 use Contao\PageModel;
 use Contao\StringUtil;
 use Slashworks\ContaoSimpleJobManagerBundle\Models\Jobs;
+use Contao\System;
+use Symfony\Component\HttpFoundation\Request;
+use Contao\BackendTemplate;
+use Contao\CoreBundle\Controller\Page;
 
 /**
  * Content element that lists Organisations to jump to Jobs.
@@ -28,9 +32,9 @@ class JobList extends Module
      */
     public function generate()
     {
-        if ( TL_MODE == 'BE' ) {
+        if (System::getContainer()->get('contao.routing.scope_matcher')->isBackendRequest(System::getContainer()->get('request_stack')->getCurrentRequest() ?? Request::create(''))) {
             /** @var BackendTemplate|object $objTemplate */
-            $objTemplate = new \BackendTemplate( 'be_wildcard' );
+            $objTemplate = new BackendTemplate( 'be_wildcard' );
             $objTemplate->wildcard = '### Jobliste ###';
 
             return $objTemplate->parse();
@@ -73,7 +77,7 @@ class JobList extends Module
 
                 // generate URL
                 $oPage = PageModel::findBy('id', $this->jumpTo);
-                $oJob->jobJumpTo = Controller::generateFrontendUrl($oPage->row(), '/' . $oJob->alias);
+                $oJob->jobJumpTo = $oPage->getFrontendUrl('/'.$oJob->alias);
                 $oJob->organisation = $oJob->getRelated('pid');
 
             }

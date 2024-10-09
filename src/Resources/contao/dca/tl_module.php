@@ -1,5 +1,8 @@
 <?php
 
+
+use Contao\ModuleModel;
+
 $GLOBALS['TL_DCA']['tl_module']['config']['onload_callback'][] = array('tl_module_dca', 'adjustDcaByType');
 
 // Add palette to tl_module
@@ -61,7 +64,7 @@ class tl_module_dca
      */
     public function adjustDcaByType($dc)
     {
-        $objMod = \Contao\ModuleModel::findByPk($dc->id);
+        $objMod = ModuleModel::findByPk($dc->id);
 
         if ($objMod === null) {
             return;

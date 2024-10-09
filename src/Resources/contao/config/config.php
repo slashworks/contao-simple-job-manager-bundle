@@ -1,6 +1,8 @@
 <?php
 
+use Contao\System;
 use Slashworks\ContaoSimpleJobManagerBundle\EventListener\GetSearchablePagesListener;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Backend modules
@@ -16,7 +18,7 @@ $GLOBALS['BE_MOD']['sjm'] = array
 /**
  * Backend Styles
  */
-if (TL_MODE === 'BE') {
+if (System::getContainer()->get('contao.routing.scope_matcher')->isBackendRequest(System::getContainer()->get('request_stack')->getCurrentRequest() ?? Request::create(''))) {
     // Add custom CSS for ProductList module.
     $GLOBALS['TL_CSS'][] = 'bundles/contaosimplejobmanager/backend.css';
 }

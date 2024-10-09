@@ -1,5 +1,11 @@
 <?php
 
+use Contao\DC_Table;
+use Contao\Backend;
+use Contao\System;
+use Contao\StringUtil;
+use Contao\Image;
+use Contao\CoreBundle\Security\ContaoCorePermissions;
 /**
  * Contao Open Source CMS
  *
@@ -18,7 +24,7 @@ $GLOBALS['TL_DCA']['tl_sjm_organisation'] = array
     // Config
     'config'   => array
     (
-        'dataContainer'     => 'Table',
+        'dataContainer'     => DC_Table::class,
         'ctable'            => array('tl_sjm_jobs'),
         'enableVersioning'  => true,
         'sql'               => array
@@ -209,11 +215,11 @@ class tl_sjm_organisation extends Backend
     public function __construct()
     {
         parent::__construct();
-        $this->import('BackendUser', 'User');
+        $this->Security = System::getContainer()->get('security.helper');
     }
 
     public function editHeader($row, $href, $label, $title, $icon, $attributes)
     {
-        return $this->User->canEditFieldsOf('tl_sjm_organisation') ? '<a href="' . $this->addToUrl($href . '&amp;id=' . $row['id']) . '" title="' . StringUtil::specialchars($title) . '"' . $attributes . '>' . Image::getHtml($icon, $label) . '</a> ' : Image::getHtml(preg_replace('/\.svg$/i', '_.svg', $icon)) . ' ';
+        return $this->Security->isGranted(ContaoCorePermissions::USER_CAN_EDIT_FIELDS_OF_TABLE, 'tl_sjm_organisation' ) ? '<a href="' . $this->addToUrl($href . '&amp;id=' . $row['id']) . '" title="' . StringUtil::specialchars($title) . '"' . $attributes . '>' . Image::getHtml($icon, $label) . '</a> ' : Image::getHtml(preg_replace('/\.svg$/i', '_.svg', $icon)) . ' ';
     }
 }
