@@ -4,3 +4,10 @@
 
 # PhpUnit
 /phpunit.xml
+
+
+.ddev
+/.ddev/
+
+.idea
+/.idea/

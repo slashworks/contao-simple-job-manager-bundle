@@ -14,7 +14,6 @@ use Contao\PageModel;
 use Contao\Environment;
 use Contao\BackendTemplate;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\VarDumper\VarDumper;
 use Slashworks\ContaoSimpleJobManagerBundle\Models\Jobs;
 use Slashworks\ContaoSimpleJobManagerBundle\Models\Organisation;
 /**
